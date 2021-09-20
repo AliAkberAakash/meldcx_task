@@ -15,11 +15,16 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
+        setProperty("archivesBaseName", "meldcx-task-$versionName")
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "DB_NAME", "\"app_db\""
+        }
         release {
+            buildConfigField "String", "DB_NAME", "\"app_db\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -65,8 +70,8 @@ dependencies {
 
     // room dependency
     def room_version = "2.3.0"
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     //RxJava3 support for Room
     implementation "androidx.room:room-rxjava3:$room_version"
 
