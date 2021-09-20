@@ -1,19 +1,11 @@
 package com.xlsoft.meldcxtask.ui.features.home
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.xlsoft.meldcxtask.R
+import com.xlsoft.meldcxtask.core.ui.BaseFragment
+import com.xlsoft.meldcxtask.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<HomeViewModel,FragmentHomeBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun getLayoutId() = R.layout.fragment_home
 
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
 }
