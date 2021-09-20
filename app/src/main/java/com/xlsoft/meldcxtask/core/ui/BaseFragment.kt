@@ -8,17 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment<ViewModel: BaseViewModel, Binding : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<Binding : ViewDataBinding> : Fragment() {
 
-    lateinit var viewModel: ViewModel
     lateinit var binding: Binding
 
     abstract fun getLayoutId(): Int
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //viewModel = ViewModelProvider(this, factory).get(getViewModelClass())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +21,6 @@ abstract class BaseFragment<ViewModel: BaseViewModel, Binding : ViewDataBinding>
     ): View? {
         binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         binding.lifecycleOwner = this
-        //lifecycle.addObserver(viewModel)
         return binding.root
     }
 
