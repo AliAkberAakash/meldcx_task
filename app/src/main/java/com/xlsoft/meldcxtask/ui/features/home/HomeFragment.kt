@@ -10,6 +10,7 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.core.view.drawToBitmap
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.xlsoft.meldcxtask.R
 import com.xlsoft.meldcxtask.core.ui.BaseFragment
 import com.xlsoft.meldcxtask.databinding.FragmentHomeBinding
@@ -94,6 +95,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream) // convert bitmap to jpg stream
             val byteArray = stream.toByteArray()
             writeBytesAsJPEG(byteArray) // save the jpeg image
+        }
+
+        binding.historyButton.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToHistoryFragment())
         }
 
     }
