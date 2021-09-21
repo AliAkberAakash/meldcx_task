@@ -32,9 +32,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     }
 
-    /**
-     * Setup the [WebView] configurations
-     */
+
+    //Setup the [WebView] configurations
     @SuppressLint("SetJavaScriptEnabled")
     private fun  setupWebView(){
 
@@ -42,9 +41,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         val settings = binding.webView.settings
         settings.javaScriptEnabled = true
 
-        // Setup WebViewClient to load url inside the app
-        // and not in default browser
+
         binding.webView.webViewClient = object : WebViewClient() {
+
+            // Setup [WebViewClient] to load url inside the app
+            // and not in default browser
             override fun shouldOverrideUrlLoading(
                 view: WebView?,
                 request: WebResourceRequest?
@@ -52,6 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 return false
             }
 
+            // hide the loader when webpage finishes loading
             override fun onPageFinished(view: WebView?, url: String?) {
                 binding.loader.makeItGone()
                 super.onPageFinished(view, url)
@@ -60,7 +62,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
+    // set listeners
     private fun setListeners(){
+        /**
+         * On Go button click
+         *  if the url field is empty show empty Toast
+         *  else load the url into the [WebView]
+         */
         binding.goButton.setOnClickListener {
             val url = binding.urlField.text.toString().trim()
             if(url.isEmpty()){
