@@ -8,6 +8,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
+import androidx.core.view.drawToBitmap
 import androidx.fragment.app.viewModels
 import com.xlsoft.meldcxtask.R
 import com.xlsoft.meldcxtask.core.ui.BaseFragment
@@ -16,6 +17,9 @@ import com.xlsoft.meldcxtask.ui.utils.makeItGone
 import com.xlsoft.meldcxtask.ui.utils.makeItVisible
 import com.xlsoft.meldcxtask.ui.utils.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -78,6 +82,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 binding.webView.loadUrl(url)
             }
         }
+
+        /**
+         * Capture the [WebView] as a bitmap
+         * Save the image in scoped storage
+         * Save the image path in database
+         */
+        binding.captureButton.setOnClickListener {
+            val bitmap = binding.webView.drawToBitmap() // get bitmap from the webView
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream) // convert bitmap to jpg stream
+            val byteArray = stream.toByteArray()
+            writeBytesAsJPEG(byteArray) // save the jpeg image
+        }
+
     }
 
+    /**
+     * Function to store bytesArray as image in
+     * scoped storage
+     */
+    private fun writeBytesAsJPEG(bytes : ByteArray) {
+        val path = requireContext().filesDir
+        val file = File.createTempFile("my_file_",".jpeg", path)
+        val os = FileOutputStream(file)
+        os.write(bytes)
+        os.close()
+    }
 }
