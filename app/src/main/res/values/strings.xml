@@ -6,4 +6,5 @@
     <string name="capture">capture</string>
     <string name="go">Go</string>
     <string name="history">History</string>
+    <string name="circular_progress_indicator">Circular Progress Indicator</string>
 </resources>
