@@ -15,13 +15,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(){
 
     private val _viewModel : MainViewModel by  viewModels()
 
-    @Inject
-    lateinit var shDao : SearchHistoryDao
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _viewModel
-        Log.d("MainActivity", "DB is created ${shDao.toString()}")
     }
 
     override fun getLayoutId() = R.layout.activity_main

@@ -1,4 +1,4 @@
-package com.xlsoft.meldcxtask.ui.features.hitory
+package com.xlsoft.meldcxtask.ui.features.history
 
 import androidx.fragment.app.viewModels
 import com.xlsoft.meldcxtask.R

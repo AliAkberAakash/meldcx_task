@@ -16,6 +16,6 @@
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.xlsoft.meldcxtask.ui.features.hitory.HistoryFragment"
+        android:name="com.xlsoft.meldcxtask.ui.features.history.HistoryFragment"
         android:label="History" />
 </navigation>

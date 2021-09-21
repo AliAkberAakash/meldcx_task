@@ -2,6 +2,7 @@ package com.xlsoft.meldcxtask.ui.features.home
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.graphics.Path
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebResourceRequest
@@ -13,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.xlsoft.meldcxtask.R
 import com.xlsoft.meldcxtask.core.ui.BaseFragment
+import com.xlsoft.meldcxtask.data.models.history.SearchHistory
 import com.xlsoft.meldcxtask.databinding.FragmentHomeBinding
 import com.xlsoft.meldcxtask.ui.utils.makeItGone
 import com.xlsoft.meldcxtask.ui.utils.makeItVisible
@@ -94,7 +96,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             val stream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream) // convert bitmap to jpg stream
             val byteArray = stream.toByteArray()
-            writeBytesAsJPEG(byteArray) // save the jpeg image
+            val imagePath = writeBytesAsJPEG(byteArray) // save the jpeg image
+            saveHistoryToDB(imagePath, binding.urlField.text.toString())
         }
 
         binding.historyButton.setOnClickListener {
@@ -107,11 +110,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
      * Function to store bytesArray as image in
      * scoped storage
      */
-    private fun writeBytesAsJPEG(bytes : ByteArray) {
+    private fun writeBytesAsJPEG(bytes : ByteArray) : String{
         val path = requireContext().filesDir
         val file = File.createTempFile("my_file_",".jpeg", path)
         val os = FileOutputStream(file)
         os.write(bytes)
         os.close()
+        return file.absolutePath
     }
+
+    private fun saveHistoryToDB(imagePath: String, url : String){
+
+        val tsLong = System.currentTimeMillis()/1000
+        val ts = tsLong.toString()
+
+        val searchHistory = SearchHistory(
+          id = -1,
+          url = url,
+          imagePath = imagePath,
+          time = ts,
+        )
+
+        _viewModel.insertSearchHistory(searchHistory)
+
+    }
+
 }

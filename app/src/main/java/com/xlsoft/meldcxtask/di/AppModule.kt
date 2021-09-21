@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.xlsoft.meldcxtask.BuildConfig
 import com.xlsoft.meldcxtask.core.data.localdb.AppDatabase
+import com.xlsoft.meldcxtask.data.datasources.localdb.SearchHistoryDao
+import com.xlsoft.meldcxtask.data.repository.home.Repository
+import com.xlsoft.meldcxtask.data.repository.home.RepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +18,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    //@Singleton
+    @Singleton
     @Provides
     fun provideAppDatabase(
         @ApplicationContext app: Context
@@ -25,8 +28,11 @@ object AppModule {
         BuildConfig.DB_NAME,
     ).build()
 
-    //@Singleton
+    @Singleton
     @Provides
     fun provideSearchHistoryDao(db : AppDatabase) = db.searchHistoryDao()
 
+    @Provides
+    @Singleton
+    fun provideRepository(searchHistoryDao: SearchHistoryDao) : Repository = RepositoryImpl(searchHistoryDao)
 }
