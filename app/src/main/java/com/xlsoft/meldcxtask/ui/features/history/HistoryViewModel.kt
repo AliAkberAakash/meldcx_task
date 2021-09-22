@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.xlsoft.meldcxtask.core.ui.BaseViewModel
 import com.xlsoft.meldcxtask.data.models.history.SearchHistory
-import com.xlsoft.meldcxtask.data.repository.home.Repository
+import com.xlsoft.meldcxtask.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -33,6 +33,15 @@ class HistoryViewModel @Inject constructor(private val repository: Repository)
         viewModelScope.launch {
             repository.deleteHistory(searchHistory)
             getHistoryList()
+        }
+    }
+
+    fun findSearchHistory(queryString : String){
+        viewModelScope.launch {
+            repository.findSearchHistory(queryString).collect {
+                Log.d("HistoryViewModel",it.toString())
+                _historyList.postValue(it)
+            }
         }
     }
 

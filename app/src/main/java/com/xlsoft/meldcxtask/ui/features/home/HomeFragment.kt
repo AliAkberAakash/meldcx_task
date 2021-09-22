@@ -2,13 +2,11 @@ package com.xlsoft.meldcxtask.ui.features.home
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.Path
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 import androidx.core.view.drawToBitmap
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,7 +19,6 @@ import com.xlsoft.meldcxtask.databinding.FragmentHomeBinding
 import com.xlsoft.meldcxtask.ui.features.shared.SharedViewModel
 import com.xlsoft.meldcxtask.ui.utils.makeItGone
 import com.xlsoft.meldcxtask.ui.utils.makeItVisible
-import com.xlsoft.meldcxtask.ui.utils.showLongToast
 import com.xlsoft.meldcxtask.ui.utils.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
@@ -174,7 +171,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         val searchHistory = SearchHistory(
           url = url,
           imagePath = imagePath,
-          time = currentTime.toString(),
+          created_at = currentTime.toString(),
         )
 
         _viewModel.insertSearchHistory(searchHistory)

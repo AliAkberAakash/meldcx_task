@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.xlsoft.meldcxtask.core.ui.BaseViewModel
 import com.xlsoft.meldcxtask.data.models.history.SearchHistory
-import com.xlsoft.meldcxtask.data.repository.home.Repository
+import com.xlsoft.meldcxtask.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

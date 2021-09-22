@@ -3,6 +3,7 @@ package com.xlsoft.meldcxtask.ui.features.history
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -28,6 +29,34 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
 
         _sharedViewModel
 
+        setListeners()
+        setObservers()
+
+        _viewModel.getHistoryList()
+
+    }
+
+    private fun setListeners(){
+        binding.searchLayout.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                _viewModel.findSearchHistory(query ?: "")
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                _viewModel.findSearchHistory(newText ?: "")
+                return false
+            }
+
+        })
+
+        binding.searchLayout.setOnCloseListener {
+            _viewModel.getHistoryList()
+            true
+        }
+    }
+
+    private fun setObservers(){
         _viewModel.historyList.observe(viewLifecycleOwner){
             adapter = HistoryListAdapter(
                 historyList = it,
@@ -48,9 +77,6 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
             )
             binding.historyList.adapter = adapter
         }
-
-        _viewModel.getHistoryList()
-
     }
 
 }

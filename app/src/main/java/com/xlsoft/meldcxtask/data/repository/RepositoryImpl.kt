@@ -1,11 +1,11 @@
-package com.xlsoft.meldcxtask.data.repository.home
+package com.xlsoft.meldcxtask.data.repository
 
 import com.xlsoft.meldcxtask.data.datasources.localdb.SearchHistoryDao
 import com.xlsoft.meldcxtask.data.models.history.SearchHistory
 import kotlinx.coroutines.flow.Flow
 
 class RepositoryImpl(val searchHistoryDao: SearchHistoryDao)
-    : Repository{
+    : Repository {
 
     override suspend fun insertSearchHistory(searchHistory: SearchHistory) {
         searchHistoryDao.insertSearchHistory(searchHistory)
@@ -17,5 +17,9 @@ class RepositoryImpl(val searchHistoryDao: SearchHistoryDao)
 
     override suspend fun deleteHistory(searchHistory: SearchHistory) {
         searchHistoryDao.deleteSearchHistory(searchHistory)
+    }
+
+    override suspend fun findSearchHistory(queryString: String) : Flow<List<SearchHistory>>{
+        return searchHistoryDao.findSearchHistory(queryString)
     }
 }

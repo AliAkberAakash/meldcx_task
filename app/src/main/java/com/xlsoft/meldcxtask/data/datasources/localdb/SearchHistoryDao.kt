@@ -14,6 +14,9 @@ interface SearchHistoryDao {
     @Insert
     suspend fun insertSearchHistory(searchHistory: SearchHistory)
 
+    @Query("SELECT * FROM SearchHistory WHERE url LIKE :queryUrl")
+    fun findSearchHistory(queryUrl : String) : Flow<List<SearchHistory>>
+
     @Delete
     suspend fun deleteSearchHistory(searchHistory: SearchHistory)
 }

@@ -5,8 +5,8 @@ import androidx.room.Room
 import com.xlsoft.meldcxtask.BuildConfig
 import com.xlsoft.meldcxtask.core.data.localdb.AppDatabase
 import com.xlsoft.meldcxtask.data.datasources.localdb.SearchHistoryDao
-import com.xlsoft.meldcxtask.data.repository.home.Repository
-import com.xlsoft.meldcxtask.data.repository.home.RepositoryImpl
+import com.xlsoft.meldcxtask.data.repository.Repository
+import com.xlsoft.meldcxtask.data.repository.RepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -37,7 +37,7 @@ class HistoryListAdapter(
         // Set values to fields
         val history = historyList[position]
         holder.urlText.text = history.url
-        holder.dateTimeText.text = history.time
+        holder.dateTimeText.text = history.created_at
 
         // Load image from file
         Glide
