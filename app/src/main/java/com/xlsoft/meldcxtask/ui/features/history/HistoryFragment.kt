@@ -27,54 +27,66 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _sharedViewModel
-
         setListeners()
         setObservers()
 
+        // fetch all histories
         _viewModel.getHistoryList()
 
     }
 
+    /**
+     * sets Listeners for the searchView
+     */
     private fun setListeners(){
         binding.searchLayout.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
-                _viewModel.findSearchHistory(query ?: "")
+                _viewModel.findSearchHistory("%${query}%") // search for url that contains query string
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                _viewModel.findSearchHistory(newText ?: "")
+            override fun onQueryTextChange(query: String?): Boolean {
+                _viewModel.findSearchHistory("%${query}%") // search for url that contains query string
                 return false
             }
 
         })
 
+        // When searchView is closed, reload all the data from the database
         binding.searchLayout.setOnCloseListener {
             _viewModel.getHistoryList()
             true
         }
     }
 
+    /**
+     * Setup observers to LiveData objects
+     */
     private fun setObservers(){
         _viewModel.historyList.observe(viewLifecycleOwner){
+
+            // create adapter with searchHistory list fetched from the database
             adapter = HistoryListAdapter(
                 historyList = it,
                 deleteCallBack = {searchHistory->
-                    val file = File(searchHistory.imagePath)
-                    val deleted: Boolean = file.delete()
+                    val file = File(searchHistory.imagePath) // get the file from path
+                    val deleted: Boolean = file.delete() // delete the file from storage
                     if(deleted){
                         Log.d("HistoryFragment", "Deleted image file from storage")
-                        _viewModel.deleteHistory(searchHistory)
+                        _viewModel.deleteHistory(searchHistory) // if file is deleted, delete the database entry too
                     }else{
                         Log.d("HistoryFragment", "Failed to delete image")
                     }
                 },
                 itemClickCallBack = {searchHistory->
+
+                    // set selected searchHistory in SharedViewModel so that
+                    // HomeFragments knows which url to load
                     _sharedViewModel.setSelectedHistory(searchHistory)
-                    findNavController().navigateUp()
+                    findNavController().navigateUp() //go back to HomeFragment
                 }
             )
+            //set the adapter to recyclerView
             binding.historyList.adapter = adapter
         }
     }
