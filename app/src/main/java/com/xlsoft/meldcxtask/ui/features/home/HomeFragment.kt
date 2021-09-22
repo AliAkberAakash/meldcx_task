@@ -27,6 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.util.*
 
 /**
  * Author: Ali Akber
@@ -168,14 +169,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
      * Saves a history object in the database
      */
     private fun saveHistoryToDB(imagePath: String, url : String){
-
-        val tsLong = System.currentTimeMillis()/1000
-        val ts = tsLong.toString()
+        val currentTime = Calendar.getInstance().time
 
         val searchHistory = SearchHistory(
           url = url,
           imagePath = imagePath,
-          time = ts,
+          time = currentTime.toString(),
         )
 
         _viewModel.insertSearchHistory(searchHistory)
