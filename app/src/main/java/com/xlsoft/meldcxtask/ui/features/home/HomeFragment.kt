@@ -28,6 +28,10 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 
+/**
+ * Author: Ali Akber
+ * Email: ali852609@gmail.com
+ */
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
@@ -45,7 +49,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     }
 
+    /**
+     * Sets observers on LiveData objects
+     */
     private fun setObservers(){
+
+        /**
+         * Observe selectedHistory field in SharedViewModel
+         * The [SharedViewModel] instance is shared by both HomeFragment and
+         * HistoryFragment. Since its a shared instance, it retains its value
+         * even when we navigate to and from fragments.
+         * selectedHistory holds the value of the history selected in the
+         * HistoryFragment. When HomeFragment is re-creates, this observer is called
+         * again and the webView is loaded with the selected value from historyFragment
+         */
         _sharedViewModel.selectedHistory.observe(viewLifecycleOwner){
             binding.urlField.setText(it.url)
             Glide
@@ -88,6 +105,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
+    /**
+     * Loads the text from urlField into the webView
+     * If the url is empty it shows an error Toast
+     */
     private fun loadWebView(){
         val url = binding.urlField.text.toString().trim()
         binding.loadingImage.makeItVisible()
@@ -143,6 +164,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         return file.absolutePath
     }
 
+    /**
+     * Saves a history object in the database
+     */
     private fun saveHistoryToDB(imagePath: String, url : String){
 
         val tsLong = System.currentTimeMillis()/1000

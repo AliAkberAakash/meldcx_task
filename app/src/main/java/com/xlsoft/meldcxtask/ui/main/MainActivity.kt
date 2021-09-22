@@ -14,11 +14,20 @@ import com.xlsoft.meldcxtask.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+/**
+ * Author: Ali Akber
+ * Email: ali852609@gmail.com
+ *
+ * This class is the entry point of the application
+ * It holds all the fragments
+ */
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Setup the actionbar with the navifation components
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -34,6 +43,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(){
 
     }
 
+    /**
+     * When up button is clicked performs navigateUp action
+     * pops current fragment and goes back to previous fragment
+     */
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp() || super.onSupportNavigateUp()
