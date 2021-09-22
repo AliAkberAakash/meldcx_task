@@ -14,7 +14,8 @@ import java.io.File
 
 class HistoryListAdapter(
     var historyList: List<SearchHistory>,
-    val deleteCallBack : (history : SearchHistory)-> Unit
+    val deleteCallBack : (history : SearchHistory)-> Unit,
+    val itemClickCallBack : (history : SearchHistory)-> Unit
 ) : RecyclerView.Adapter<HistoryViewHolder>(){
 
     private lateinit var context : Context
@@ -46,8 +47,17 @@ class HistoryListAdapter(
             //.placeholder(R.drawable.loading_spinner)
             .into(holder.screenshotImage)
 
+        // delete item
         holder.deleteButton.setOnClickListener {
             deleteCallBack(historyList[position])
+        }
+
+        // itemCLick CallBack
+        holder.screenshotImage.setOnClickListener {
+             itemClickCallBack(historyList[position])
+        }
+        holder.urlText.setOnClickListener {
+            itemClickCallBack(historyList[position])
         }
     }
 

@@ -3,6 +3,7 @@ package com.xlsoft.meldcxtask.ui.features.history
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.xlsoft.meldcxtask.R
 import com.xlsoft.meldcxtask.core.ui.BaseFragment
@@ -26,9 +27,16 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
         _sharedViewModel
 
         _viewModel.historyList.observe(viewLifecycleOwner){
-            adapter = HistoryListAdapter(it){searchHistory->
-                _viewModel.deleteHistory(searchHistory)
-            }
+            adapter = HistoryListAdapter(
+                historyList = it,
+                deleteCallBack = {searchHistory->
+                    _viewModel.deleteHistory(searchHistory)
+                },
+                itemClickCallBack = {searchHistory->
+                    _sharedViewModel.setSelectedHistory(searchHistory)
+                    findNavController().navigateUp()
+                }
+            )
             binding.historyList.adapter = adapter
         }
 
