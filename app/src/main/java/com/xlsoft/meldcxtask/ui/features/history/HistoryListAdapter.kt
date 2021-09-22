@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.xlsoft.meldcxtask.R
 import com.xlsoft.meldcxtask.data.models.history.SearchHistory
+import java.io.File
 
 class HistoryListAdapter(var historyList: List<SearchHistory>) : RecyclerView.Adapter<HistoryViewHolder>(){
 
@@ -27,9 +29,20 @@ class HistoryListAdapter(var historyList: List<SearchHistory>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
+
+        // Set values to fields
         val history = historyList[position]
         holder.urlText.text = history.url
         holder.dateTimeText.text = history.time
+
+        // Load image from file
+        Glide
+            .with(context)
+            .load(File(history.imagePath))
+            .centerCrop()
+            //.placeholder(R.drawable.loading_spinner)
+            .into(holder.screenshotImage)
+
         holder.deleteButton.setOnClickListener {
             //todo delete item
         }
