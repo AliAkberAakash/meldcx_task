@@ -39,8 +39,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         setupWebView()
         setListeners()
-        _sharedViewModel
+        setObservers()
 
+    }
+
+    private fun setObservers(){
+        _sharedViewModel.selectedHistory.observe(viewLifecycleOwner){
+            binding.urlField.setText(it.url)
+            loadWebView()
+        }
     }
 
 
@@ -73,6 +80,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
+    private fun loadWebView(){
+        val url = binding.urlField.text.toString().trim()
+        if(url.isEmpty()){
+            showShortToast(requireContext(), "Please enter a url")
+        }else{
+            binding.loader.makeItVisible()
+            binding.webView.loadUrl(url)
+        }
+    }
+
     // set listeners
     private fun setListeners(){
         /**
@@ -81,13 +98,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
          *  else load the url into the [WebView]
          */
         binding.goButton.setOnClickListener {
-            val url = binding.urlField.text.toString().trim()
-            if(url.isEmpty()){
-                showShortToast(requireContext(), "Please enter a url")
-            }else{
-                binding.loader.makeItVisible()
-                binding.webView.loadUrl(url)
-            }
+            loadWebView()
         }
 
         /**
