@@ -67,17 +67,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:contentDescription="@string/circular_progress_indicator"
-            android:id="@+id/loader"
-            android:indeterminate="true"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/loadingImage"
             android:visibility="gone"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/standardPadding"
+            android:layout_marginBottom="@dimen/standardPadding"
+            app:layout_constraintBottom_toTopOf="@+id/captureButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/urlLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

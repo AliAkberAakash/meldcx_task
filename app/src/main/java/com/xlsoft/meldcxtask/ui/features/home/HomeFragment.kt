@@ -13,6 +13,7 @@ import androidx.core.view.drawToBitmap
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import com.bumptech.glide.Glide
 import com.xlsoft.meldcxtask.R
 import com.xlsoft.meldcxtask.core.ui.BaseFragment
 import com.xlsoft.meldcxtask.data.models.history.SearchHistory
@@ -20,6 +21,7 @@ import com.xlsoft.meldcxtask.databinding.FragmentHomeBinding
 import com.xlsoft.meldcxtask.ui.features.shared.SharedViewModel
 import com.xlsoft.meldcxtask.ui.utils.makeItGone
 import com.xlsoft.meldcxtask.ui.utils.makeItVisible
+import com.xlsoft.meldcxtask.ui.utils.showLongToast
 import com.xlsoft.meldcxtask.ui.utils.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
@@ -46,6 +48,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun setObservers(){
         _sharedViewModel.selectedHistory.observe(viewLifecycleOwner){
             binding.urlField.setText(it.url)
+            Glide
+                .with(requireContext())
+                .load(File(it.imagePath))
+                .centerCrop()
+                .into(binding.loadingImage)
             loadWebView()
         }
     }
@@ -71,9 +78,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 return false
             }
 
-            // hide the loader when webpage finishes loading
+            // hide the loader image when webpage finishes loading
             override fun onPageFinished(view: WebView?, url: String?) {
-                binding.loader.makeItGone()
+                binding.loadingImage.makeItGone()
+                showShortToast(requireContext(), getString(R.string.finished_loading_webpage))
                 super.onPageFinished(view, url)
             }
 
@@ -82,10 +90,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun loadWebView(){
         val url = binding.urlField.text.toString().trim()
+        binding.loadingImage.makeItVisible()
         if(url.isEmpty()){
-            showShortToast(requireContext(), "Please enter a url")
+            showShortToast(requireContext(), getString(R.string.enter_url_prompt))
         }else{
-            binding.loader.makeItVisible()
+            showShortToast(requireContext(), getString(R.string.loading_webpage))
             binding.webView.loadUrl(url)
         }
     }
