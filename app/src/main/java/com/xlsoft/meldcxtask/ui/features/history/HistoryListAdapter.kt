@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xlsoft.meldcxtask.R
 import com.xlsoft.meldcxtask.data.models.history.SearchHistory
 
-class HistoryClassAdapter(var historyList: List<SearchHistory>) : RecyclerView.Adapter<HistoryViewHolder>(){
+class HistoryListAdapter(var historyList: List<SearchHistory>) : RecyclerView.Adapter<HistoryViewHolder>(){
 
     private lateinit var context : Context
 

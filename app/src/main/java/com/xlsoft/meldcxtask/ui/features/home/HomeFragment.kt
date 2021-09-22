@@ -125,7 +125,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         val ts = tsLong.toString()
 
         val searchHistory = SearchHistory(
-          id = -1,
           url = url,
           imagePath = imagePath,
           time = ts,

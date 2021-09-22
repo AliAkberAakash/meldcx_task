@@ -1,9 +1,6 @@
 package com.xlsoft.meldcxtask.data.datasources.localdb
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.xlsoft.meldcxtask.data.models.history.SearchHistory
 import kotlinx.coroutines.flow.Flow
 
