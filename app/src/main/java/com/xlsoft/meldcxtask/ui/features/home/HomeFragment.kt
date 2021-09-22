@@ -131,8 +131,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     /**
-     * Function to store bytesArray as image in
-     * scoped storage
+     * Stores bytesArray as image in
+     * scoped storage, and return the saved path
      */
     private fun writeBytesAsJPEG(bytes : ByteArray) : String{
         val path = requireContext().filesDir
