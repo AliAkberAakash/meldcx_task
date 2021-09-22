@@ -14,4 +14,8 @@ class RepositoryImpl(val searchHistoryDao: SearchHistoryDao)
     override suspend fun getAllHistories() : Flow<List<SearchHistory>> {
         return searchHistoryDao.getAllSearchHistory()
     }
+
+    override suspend fun deleteHistory(searchHistory: SearchHistory) {
+        searchHistoryDao.deleteSearchHistory(searchHistory)
+    }
 }

@@ -12,7 +12,10 @@ import com.xlsoft.meldcxtask.R
 import com.xlsoft.meldcxtask.data.models.history.SearchHistory
 import java.io.File
 
-class HistoryListAdapter(var historyList: List<SearchHistory>) : RecyclerView.Adapter<HistoryViewHolder>(){
+class HistoryListAdapter(
+    var historyList: List<SearchHistory>,
+    val deleteCallBack : (history : SearchHistory)-> Unit
+) : RecyclerView.Adapter<HistoryViewHolder>(){
 
     private lateinit var context : Context
 
@@ -44,7 +47,7 @@ class HistoryListAdapter(var historyList: List<SearchHistory>) : RecyclerView.Ad
             .into(holder.screenshotImage)
 
         holder.deleteButton.setOnClickListener {
-            //todo delete item
+            deleteCallBack(historyList[position])
         }
     }
 

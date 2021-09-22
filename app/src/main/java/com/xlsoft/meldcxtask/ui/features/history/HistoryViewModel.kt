@@ -29,4 +29,11 @@ class HistoryViewModel @Inject constructor(private val repository: Repository)
         }
     }
 
+    fun deleteHistory(searchHistory: SearchHistory){
+        viewModelScope.launch {
+            repository.deleteHistory(searchHistory)
+            getHistoryList()
+        }
+    }
+
 }

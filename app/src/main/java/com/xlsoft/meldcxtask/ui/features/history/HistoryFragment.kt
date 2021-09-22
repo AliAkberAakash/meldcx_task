@@ -20,7 +20,9 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         _viewModel.historyList.observe(viewLifecycleOwner){
-            adapter = HistoryListAdapter(it)
+            adapter = HistoryListAdapter(it){searchHistory->
+                _viewModel.deleteHistory(searchHistory)
+            }
             binding.historyList.adapter = adapter
         }
 
