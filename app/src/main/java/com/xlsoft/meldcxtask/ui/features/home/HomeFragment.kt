@@ -12,10 +12,12 @@ import android.widget.Toast
 import androidx.core.view.drawToBitmap
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.xlsoft.meldcxtask.R
 import com.xlsoft.meldcxtask.core.ui.BaseFragment
 import com.xlsoft.meldcxtask.data.models.history.SearchHistory
 import com.xlsoft.meldcxtask.databinding.FragmentHomeBinding
+import com.xlsoft.meldcxtask.ui.features.shared.SharedViewModel
 import com.xlsoft.meldcxtask.ui.utils.makeItGone
 import com.xlsoft.meldcxtask.ui.utils.makeItVisible
 import com.xlsoft.meldcxtask.ui.utils.showShortToast
@@ -28,6 +30,7 @@ import java.io.FileOutputStream
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val _viewModel : HomeViewModel by viewModels()
+    private val _sharedViewModel : SharedViewModel by navGraphViewModels(R.id.nav_graph)
 
     override fun getLayoutId() = R.layout.fragment_home
 
@@ -36,6 +39,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         setupWebView()
         setListeners()
+        _sharedViewModel
 
     }
 
