@@ -20,6 +20,7 @@ import com.xlsoft.meldcxtask.databinding.FragmentHomeBinding
 import com.xlsoft.meldcxtask.ui.features.shared.SharedViewModel
 import com.xlsoft.meldcxtask.ui.utils.makeItGone
 import com.xlsoft.meldcxtask.ui.utils.makeItVisible
+import com.xlsoft.meldcxtask.ui.utils.showLongToast
 import com.xlsoft.meldcxtask.ui.utils.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
@@ -132,24 +133,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             loadWebView()
         }
 
-        /**
-         * Capture the [WebView] as a bitmap
-         * Save the image in scoped storage
-         * Save the image path in database
-         */
+
         binding.captureButton.setOnClickListener {
-            val bitmap = binding.webView.drawToBitmap() // get bitmap from the webView
-            val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream) // convert bitmap to jpg stream
-            val byteArray = stream.toByteArray()
-            val imagePath = writeBytesAsJPEG(byteArray) // save the jpeg image
-            saveHistoryToDB(imagePath, binding.urlField.text.toString())
+            showLongToast(requireContext(),getString(R.string.capturing_screenshot))
+            captureScreenShot()
         }
 
         binding.historyButton.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToHistoryFragment())
         }
 
+    }
+
+    /**
+     * Capture the [WebView] as a bitmap
+     * Save the image in scoped storage
+     * Save the image path in database
+     */
+    private fun captureScreenShot(){
+        val bitmap = binding.webView.drawToBitmap() // get bitmap from the webView
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream) // convert bitmap to jpg stream
+        val byteArray = stream.toByteArray()
+        val imagePath = writeBytesAsJPEG(byteArray) // save the jpeg image
+        saveHistoryToDB(imagePath, binding.urlField.text.toString())
     }
 
     /**
