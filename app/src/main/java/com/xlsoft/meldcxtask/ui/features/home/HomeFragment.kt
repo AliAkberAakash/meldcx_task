@@ -114,10 +114,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.loadingImage.makeItVisible()
         if(url.isEmpty()){
             showShortToast(requireContext(), getString(R.string.enter_url_prompt))
-        }else if(!isValidUrl(url)){
-            showShortToast(requireContext(), getString(R.string.valid_url_prompt))
         }else{
             showShortToast(requireContext(), getString(R.string.loading_webpage))
+            binding.webView.makeItVisible()
             binding.webView.loadUrl(url)
         }
     }
@@ -135,8 +134,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
 
         binding.captureButton.setOnClickListener {
-            showLongToast(requireContext(),getString(R.string.capturing_screenshot))
-            captureScreenShot()
+            if(binding.webView.visibility == View.VISIBLE){
+                showLongToast(requireContext(),getString(R.string.capturing_screenshot))
+                captureScreenShot()
+            }else{
+                showLongToast(requireContext(),getString(R.string.load_webpage_prompt))
+            }
         }
 
         binding.historyButton.setOnClickListener {
@@ -186,10 +189,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         _viewModel.insertSearchHistory(searchHistory)
 
-    }
-
-    private fun isValidUrl(url : String) : Boolean{
-        return URLUtil.isValidUrl(url)
     }
 
 }

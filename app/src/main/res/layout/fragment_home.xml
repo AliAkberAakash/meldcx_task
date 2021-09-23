@@ -8,16 +8,16 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:padding="@dimen/standardPadding"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/standardPadding"
         tools:context=".ui.features.home.HomeFragment">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:background="@color/white"
             android:id="@+id/searchLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:hint="@string/enter_url"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,9 +25,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/urlField"
-                android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,6 +37,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/standardPadding"
             android:layout_marginBottom="@dimen/standardPadding"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/captureButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,11 +70,11 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/loadingImage"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/standardPadding"
             android:layout_marginBottom="@dimen/standardPadding"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/captureButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

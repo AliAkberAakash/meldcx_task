@@ -8,31 +8,31 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:padding="@dimen/standardPadding"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/standardPadding"
         tools:context=".ui.features.history.HistoryFragment">
 
         <androidx.appcompat.widget.SearchView
-            app:queryHint="@string/search_here"
             android:id="@+id/searchLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="@string/search_here" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="@dimen/standardPadding"
             android:id="@+id/historyList"
-            tools:listitem="@layout/view_history_item"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/standardPadding"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchLayout" />
+            app:layout_constraintTop_toBottomOf="@id/searchLayout"
+            tools:listitem="@layout/view_history_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

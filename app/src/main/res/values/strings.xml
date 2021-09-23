@@ -13,4 +13,5 @@
     <string name="valid_url_prompt">Please enter a valid url</string>
     <string name="search_here">Search here</string>
     <string name="capturing_screenshot">Capturing Screenshot</string>
+    <string name="load_webpage_prompt">Please load a webpage first</string>
 </resources>
