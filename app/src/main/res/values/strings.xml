@@ -10,5 +10,6 @@
     <string name="loading_webpage">Loading webpage…</string>
     <string name="finished_loading_webpage">Finished loading</string>
     <string name="enter_url_prompt">Please enter a url</string>
+    <string name="valid_url_prompt">Please enter a valid url</string>
     <string name="search_here">Search here</string>
 </resources>

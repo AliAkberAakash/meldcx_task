@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
+import android.webkit.URLUtil
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -112,6 +113,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.loadingImage.makeItVisible()
         if(url.isEmpty()){
             showShortToast(requireContext(), getString(R.string.enter_url_prompt))
+        }else if(!isValidUrl(url)){
+            showShortToast(requireContext(), getString(R.string.valid_url_prompt))
         }else{
             showShortToast(requireContext(), getString(R.string.loading_webpage))
             binding.webView.loadUrl(url)
@@ -176,6 +179,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         _viewModel.insertSearchHistory(searchHistory)
 
+    }
+
+    private fun isValidUrl(url : String) : Boolean{
+        return URLUtil.isValidUrl(url)
     }
 
 }
